@@ -27,6 +27,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1Xr83Mhz1fnuwE6IgdOLpVRkG8c" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -35,6 +36,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="13.2.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
@@ -77,6 +79,7 @@
       <workItem from="1582731195103" duration="7372000" />
       <workItem from="1582916164548" duration="73000" />
       <workItem from="1582916249718" duration="1313000" />
+      <workItem from="1582917591993" duration="281000" />
     </task>
     <servers />
   </component>
