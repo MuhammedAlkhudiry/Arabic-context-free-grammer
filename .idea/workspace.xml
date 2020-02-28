@@ -23,6 +23,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1Xr83Mhz1fnuwE6IgdOLpVRkG8c" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
@@ -99,6 +102,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="82" y="115" key="CommitChangelistDialog2" timestamp="1582917813237">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="82" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582917813237" />
     <state width="530" height="466" key="DebuggerActiveHint" timestamp="1582738792571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -179,10 +186,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="141" y="368" key="cloudConfig.SelfSettingsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582738547616" />
-    <state x="183" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1582916249981">
+    <state x="183" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1582917591562">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="183" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582916249981" />
+    <state x="183" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582917591562" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
