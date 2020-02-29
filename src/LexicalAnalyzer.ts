@@ -8,43 +8,51 @@ export default class LexicalAnalyzer {
         this.database = new Database();
     }
 
+
     analyze(word: string) {
         this.word = word;
 
         if (this.isHarf()) {
 
+        } else if (this.isDigit()) {
+        } else if (this.isVerb()) {
+
         }
-    }
-
-    lookup(word: string) {
 
     }
+
 
     isVerb() {
-
+        for (const key of Object.keys(this.database.verbs)) {
+            if (this.database.verbs[key].include(this.word))
+                return 'verbs';
+        }
+        return null;
     }
 
     isHarf() {
         for (const key of Object.keys(this.database.horof)) {
             if (this.database.horof[key].include(this.word))
-                return true;
+                return 'horof';
         }
-        return false;
+        return null;
     }
 
     isDigit() {
-
+        return /^\d+$/.test(this.word) ||
+        isNaN(parseInt(this.word)) ||
+        /[\u0660-\u0669]/.test(this.word) ? 'num' : null;
     }
 
     isNegativeParticle() {
-        return this.database.horof['negativeParticle'].includes(this.word);
+        return this.database.horof['negativeParticle'].includes(this.word) ? 'negativeParticle' : null;
     }
 
     isInterrogativeParticle() {
-        return this.database.horof['interrogativeParticle'].includes(this.word);
+        return this.database.horof['interrogativeParticle'].includes(this.word) ? 'interrogativeParticle' : null;
     }
 
     isPreposition() {
-        return this.database.horof['preposition'].includes(this.word);
+        return this.database.horof['preposition'].includes(this.word) ? 'preposition' : null;
     }
 }

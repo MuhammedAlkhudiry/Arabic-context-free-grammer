@@ -1,10 +1,17 @@
 import LexicalAnalyzer from "./LexicalAnalyzer";
+import Parser from "./Parser";
 
-class ArabicGrammar {
+export default class ArabicGrammar {
     private lexicalAnalyzer: LexicalAnalyzer;
+    private parser: Parser;
 
-    constructor() {
+    constructor(parser: Parser) {
+        this.parser = parser;
         this.lexicalAnalyzer = new LexicalAnalyzer();
+    }
+
+    init() {
+        this.sentence();
     }
 
     sentence() {
@@ -25,9 +32,9 @@ class ArabicGrammar {
     }
 
     originalParticle() {
-        switch () {
-
-        }
+        // switch () {
+        //
+        // }
     }
 
     transformedParticle() {

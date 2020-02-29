@@ -1,7 +1,8 @@
 export default class Database {
-    public horof: object;
-    public asma: object;
-    public afal: object;
+    horof: object;
+    asma: object;
+    afal: object;
+    verbs: object;
 
     constructor() {
         this.horof = {
@@ -50,12 +51,15 @@ export default class Database {
             verbalTransformedParticle: ["كان", "أصبح", "أضحى", "ظل", "أمسى", "بات", "ما زال", "ما برح", "ما انفك", "ما فتئ", "ما دام",
                 "صار", "ليس"],
 
-        }
+        };
+
+        this.verbs = {
+            past: ['ذهب'],
+            present: ['يذهب'],
+            future: ['اذهب']
+        };
     }
 
-    insert(word: string) {
-
-    }
 
     fetch(word: string) {
 
