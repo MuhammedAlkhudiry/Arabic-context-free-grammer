@@ -28,9 +28,15 @@ export default class LexicalAnalyzer {
             return 'verb';
         } else if (this.isPunctuation()) {
             return 'علامة ترقيم';
+        } else if (this.isAdjectiveParticle()) {
+            return 'أخوات إن';
+        } else if (this.isVerbalTransformedParticle()) {
+            return 'أخوات كان';
+        } else if (this.isAdverb()) {
+            return 'ظرف';
         }
 
-        return 'name'
+        return 'noun';
     }
 
 
@@ -71,7 +77,16 @@ export default class LexicalAnalyzer {
         return /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/.test(this.word);
     }
 
-    isTransformedParticle() {
+    isAdjectiveParticle() {
         return this.database.horof['أخوات إن'].includes(this.word);
+    }
+
+    isVerbalTransformedParticle() {
+        return this.database.afal['أخوات كان'].includes(this.word);
+    }
+
+    isAdverb() {
+        return this.database.asma['ظرف زمان'].includes(this.word) ||
+            this.database.asma['ظرف مكان'].includes(this.word);
     }
 }

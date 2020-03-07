@@ -51,30 +51,68 @@ export default class ArabicGrammar {
     }
 
     transformedParticle() {
-        this.match('أخوات إن');
+        if (this.parser.lookahead === 'أخوات إن')
+            this.match('أخوات إن');
+        else if (this.parser.lookahead === 'أخوات كان')
+            this.match('أخوات كان');
     }
 
     subjectPhrase() {
+        this.subject();
+        this.expansionPhrase();
 
     }
 
     subject() {
-
+        if (this.parser.lookahead === 'noun') {
+            this.match('noun');
+        } else if (this.parser.lookahead === 'pronoun') {
+            this.match('pronoun');
+        }
     }
 
-    predicatePhrase() {
 
+    predicatePhrase() {
+        this.predicate();
+        this.expansionPhrase();
     }
 
     predicate() {
+        if (this.parser.lookahead === 'noun') {
+            this.match('noun');
+        }
 
     }
 
     derivedNoun() {
+        switch (this.parser.lookahead) {
+            case 'اسم فاعل':
+                this.match('اسم فاعل');
+                break;
+            case 'اسم مفعول':
+                this.match('اسم مفعول');
+                break;
+            case 'صيغة مبالغة':
+                this.match('صيغة مبالغة');
+                break;
+            case 'صفة مشبهة':
+                this.match('صفة مشبهة');
+                break;
+        }
 
     }
 
     semiSentence() {
+        switch (this.parser.lookahead) {
+            case 'حرف جر':
+                this.match('حرف جر');
+                this.match('noun');
+                break;
+            case 'ظرف':
+                this.match('ظرف');
+                this.match('noun');
+                break;
+        }
 
     }
 
