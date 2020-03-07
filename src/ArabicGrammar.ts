@@ -1,18 +1,23 @@
-import LexicalAnalyzer from "./LexicalAnalyzer";
 import Parser from "./Parser";
 
 export default class ArabicGrammar {
-    private lexicalAnalyzer: LexicalAnalyzer;
-    private parser: Parser;
+    private readonly parser: Parser;
 
-    constructor(parser: Parser) {
-        this.parser = parser;
-        this.lexicalAnalyzer = new LexicalAnalyzer();
+    constructor(text: string) {
+        this.parser = new Parser(text);
+
     }
 
-    init() {
+    match(token: string) {
+        return this.parser.match(token);
+    }
+
+    analyze() {
+        this.parser.readFirstWord();
         this.sentence();
     }
+
+    /* --- Arabic Grammar --- */
 
     sentence() {
         this.nominalSentence();
@@ -32,13 +37,21 @@ export default class ArabicGrammar {
     }
 
     originalParticle() {
-        // switch () {
-        //
-        // }
+        switch (this.parser.lookahead) {
+            case 'حرف نفي':
+                this.match('حرف نفي');
+                break;
+            case 'حرف استفهام':
+                this.match('حرف استفهام');
+                break;
+            case 'حرف جر':
+                this.match('حرف جر');
+                break;
+        }
     }
 
     transformedParticle() {
-
+        this.match('أخوات إن');
     }
 
     subjectPhrase() {
@@ -150,4 +163,4 @@ export default class ArabicGrammar {
     RelativeSentence() {
 
     }
-}
+};

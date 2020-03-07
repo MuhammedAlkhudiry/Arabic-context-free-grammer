@@ -1,7 +1,6 @@
 import Helper from './Helper';
 import LexicalAnalyzer from './LexicalAnalyzer';
 import ATSError from "./Error";
-import ArabicGrammar from "./ArabicGrammar";
 
 export default class Parser {
     lexicalAnalyzer: LexicalAnalyzer;
@@ -11,25 +10,33 @@ export default class Parser {
     currentPass: number = 0;
     position: number = 0;
     lookahead: string = '';
+    currentIndex: number = 0;
 
     constructor(text: string) {
         this.originalText = text;
         this.words = text.split(' ');
         this.cleanText = Helper.cleanText(this.originalText);
         this.lexicalAnalyzer = new LexicalAnalyzer();
-        this.init();
     }
 
-    init() {
-        this.lookahead = this.lexicalAnalyzer.analyze(this.words[0]);
-        new ArabicGrammar(this).init();
+    readFirstWord() {
+        this.lookahead = this.analyzeCurrentWord();
     }
 
 
-    match(token, error: ATSError) {
-        if (this.lookahead !== token)
-            error.show();
+    match(token, error: ATSError = new ATSError('خطأ لغوي')) {
+        if (this.lookahead === token) {
+            this.lookahead = this.analyzeCurrentWord();
+            this.currentIndex++;
+        } else
+            error.print();
     }
 
+    analyzeCurrentWord() {
+        if (this.currentIndex <= this.words.length)
+            return this.lexicalAnalyzer.analyze(this.words[this.currentIndex]);
+        else
+            new ATSError('end of file');
+    }
 
 }

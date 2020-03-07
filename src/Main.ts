@@ -1,9 +1,10 @@
-import Parser from "./Parser";
+import ArabicGrammar from "./ArabicGrammar";
 
 class Main {
 
     run() {
-        new Parser('محمد في المسجد').init();
+        const arabicGrammar = new ArabicGrammar('محمد في المسجد');
+        arabicGrammar.analyze();
     }
 
 }
