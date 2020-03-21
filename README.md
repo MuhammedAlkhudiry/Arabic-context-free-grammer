@@ -1,6 +1,6 @@
 # Arabic-context-free-grammer
  
-application to analyze Arabic Text, for example:
+An application to analyze Arabic Text, for example:
 
 input:
 
