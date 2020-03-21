@@ -20,29 +20,41 @@ export default class LexicalAnalyzer {
                 return 'حرف استفهام';
             } else if (this.isPreposition()) {
                 return 'حرف جر';
+            } else if (this.isInfinitiveParticle()) {
+                return 'حرف جر';
             }
-            return 'harf';
+            return 'حرف';
         } else if (this.isDigit()) {
-            return 'num';
-        } else if (this.isVerb()) {
-            return 'verb';
+            return 'رقم';
+        } else if (this.isIntransitiveVerb()) {
+            return 'فعل لازم';
+        } else if (this.isTransitiveVerb()) {
+            return 'فعل معتدي';
         } else if (this.isPunctuation()) {
             return 'علامة ترقيم';
         } else if (this.isAdjectiveParticle()) {
-            return 'أخوات إن';
+            return 'حرف ناسخ';
         } else if (this.isVerbalTransformedParticle()) {
-            return 'أخوات كان';
+            return 'فعل ناسخ';
         } else if (this.isAdverb()) {
             return 'ظرف';
         }
 
-        return 'noun';
+        return 'اسم';
     }
 
 
-    isVerb() {
-        for (const key of Object.keys(this.database.verbs)) {
-            if (this.database.verbs[key].includes(this.word))
+    isIntransitiveVerb() {
+        for (const key of Object.keys(this.database.verbs['لازم'])) {
+            if (this.database.verbs['لازم'][key].includes(this.word))
+                return true;
+        }
+        return false;
+    }
+
+    isTransitiveVerb() {
+        for (const key of Object.keys(this.database.verbs['متعدي'])) {
+            if (this.database.verbs['متعدي'][key].includes(this.word))
                 return true;
         }
         return false;
@@ -62,15 +74,18 @@ export default class LexicalAnalyzer {
     }
 
     isNegativeParticle() {
-        return this.database.horof['negativeParticle'].includes(this.word);
+        return this.database.horof['حرف نفي'].includes(this.word);
     }
 
     isInterrogativeParticle() {
-        return this.database.horof['interrogativeParticle'].includes(this.word);
+        return this.database.horof['حرف استفهام'].includes(this.word);
     }
 
     isPreposition() {
-        return this.database.horof['preposition'].includes(this.word);
+        return this.database.horof['حرف جر'].includes(this.word);
+    }
+    isInfinitiveParticle() {
+        return this.database.horof['حرف مصدري'].includes(this.word);
     }
 
     isPunctuation() {
@@ -78,11 +93,11 @@ export default class LexicalAnalyzer {
     }
 
     isAdjectiveParticle() {
-        return this.database.horof['أخوات إن'].includes(this.word);
+        return this.database.horof['حرف ناسخ'].includes(this.word);
     }
 
     isVerbalTransformedParticle() {
-        return this.database.afal['أخوات كان'].includes(this.word);
+        return this.database.afal['فعل ناسخ'].includes(this.word);
     }
 
     isAdverb() {

@@ -1,12 +1,14 @@
-import ArabicGrammar from "./ArabicGrammar";
+import ArabicGrammar from "./grammer/ArabicGrammar";
+import Parser from "./Parser";
+import Sentence from "./grammer/Sentence";
 
 class Main {
 
     run() {
-        const arabicGrammar = new ArabicGrammar('محمد في المسجد');
-        arabicGrammar.analyze();
+        const parser = new Parser('محمد في المسجد');
+        new ArabicGrammar(parser);
+        new Sentence(parser);
     }
-
 }
 
 new Main().run();
