@@ -4,7 +4,9 @@ An application to analyze Arabic Text, for example:
 
 input:
 
-`يذهب محمد إلى المسجد`
+```
+يذهب محمد إلى المسجد
+```
 
 output:
 
