@@ -12,6 +12,7 @@ export default class NominalSentence extends ArabicGrammar {
     }
 
     nominalSentence() {
+        this.parser.currentSentenceType = 'N';
         this.annular();
         this.subjectPhrase();
         this.predicatePhrase();
@@ -45,9 +46,13 @@ export default class NominalSentence extends ArabicGrammar {
         if (this.parser.isLookaheadIn(['اسم فاعل', 'اسم مفعول', 'صيغة مبالغة', 'صفة مشبهة']))
             this.sentence.derivedNoun();
         else if (this.IsLookaheadEquals('اسم')) {
-            this.match('اسم');
+            this.match('اسم', 'خبر');
         } else if (this.parser.isSemiSentence()) {
+            const prevIndex = this.parser.currentIndex;
             this.sentence.semiSentence();
+            const currentIndex = this.parser.currentIndex;
+            const predicateSentence = this.parser.words.slice(prevIndex, currentIndex).join(' ');
+            console.log(`الجملة السابقة خبر(${predicateSentence})`);
         } else new Sentence(this.parser);
     }
 

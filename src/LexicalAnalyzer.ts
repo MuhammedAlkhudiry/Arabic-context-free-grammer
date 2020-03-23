@@ -29,7 +29,7 @@ export default class LexicalAnalyzer {
         } else if (this.isIntransitiveVerb()) {
             return 'فعل لازم';
         } else if (this.isTransitiveVerb()) {
-            return 'فعل معتدي';
+            return 'فعل متعدي';
         } else if (this.isPunctuation()) {
             return 'علامة ترقيم';
         } else if (this.isAdjectiveParticle()) {
@@ -45,16 +45,16 @@ export default class LexicalAnalyzer {
 
 
     isIntransitiveVerb() {
-        for (const key of Object.keys(this.database.verbs['لازم'])) {
-            if (this.database.verbs['لازم'][key].includes(this.word))
+        for (const key of Object.keys(this.database.verbs['فعل لازم'])) {
+            if (this.database.verbs['فعل لازم'][key].includes(this.word))
                 return true;
         }
         return false;
     }
 
     isTransitiveVerb() {
-        for (const key of Object.keys(this.database.verbs['متعدي'])) {
-            if (this.database.verbs['متعدي'][key].includes(this.word))
+        for (const key of Object.keys(this.database.verbs['فعل متعدي'])) {
+            if (this.database.verbs['فعل متعدي'][key].includes(this.word))
                 return true;
         }
         return false;

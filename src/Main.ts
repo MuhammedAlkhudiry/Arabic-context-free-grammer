@@ -5,7 +5,7 @@ import Sentence from "./grammer/Sentence";
 class Main {
 
     run() {
-        const parser = new Parser('محمد في المسجد');
+        const parser = new Parser('ضرب محمد زيدا');
         new ArabicGrammar(parser);
         new Sentence(parser);
     }

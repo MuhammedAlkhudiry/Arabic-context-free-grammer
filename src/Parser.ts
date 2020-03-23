@@ -11,8 +11,10 @@ export default class Parser {
     position: number = 0;
     lookahead: string = '';
     currentIndex: number = 0;
+     currentSentenceType: string;
 
     constructor(text: string) {
+        this.currentSentenceType = 'N'; // N -> nominal, V -> verbal
         this.originalText = text;
         this.lexicalAnalyzer = new LexicalAnalyzer();
         this.words = text.split(' ');
@@ -26,7 +28,7 @@ export default class Parser {
 
     match(token: string, partOfSpeech: string = token, error: ATSError = new ATSError('خطأ لغوي')) {
         if (this.lookahead === token) {
-            console.log(`${this.getCurrentWord()} - (${token}) - (${partOfSpeech}))`);
+            console.log(`${this.getCurrentWord()} - (${token}) - (${partOfSpeech})`);
             this.currentIndex++;
             if ((this.lookahead = this.analyzeCurrentWord()) === 'علامة ترقيم')
                 this.lookahead = this.analyzeCurrentWord();
@@ -60,7 +62,7 @@ export default class Parser {
     }
 
     isObject() {
-        return this.isLookaheadIn(['اسم', 'حرف مصدري']) || this.isNominalSentence();
+        return this.isLookaheadIn(['اسم', 'حرف مصدري']);
     }
 
     isLookaheadIn(tokenList: Array<string>) {

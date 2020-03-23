@@ -12,14 +12,17 @@ export default class VerbalSentence extends ArabicGrammar {
     }
 
     verbalSentence() {
-        this.verbPhrase();
-        this.remainingVerbPhrase();
+        this.parser.currentSentenceType = 'V';
+        if (this.IsLookaheadEquals('فعل لازم')) {
+            this.match('فعل لازم');
+            this.verbalSubjectPhrase();
+            this.remainingIntransitive();
+        } else if (this.IsLookaheadEquals('فعل متعدي')) {
+            this.match('فعل متعدي');
+            this.verbalSubjectPhrase();
+            this.remainingTransitive();
+        }
     }
-
-    remainingVerbPhrase() {
-        this.verbalSubjectPhrase();
-    }
-
 
     verbalSubjectPhrase() {
         this.sentence.subject();
@@ -31,30 +34,20 @@ export default class VerbalSentence extends ArabicGrammar {
         this.sentence.complementPhrase();
     }
 
-    verbPhrase() {
-        if (this.IsLookaheadEquals('فعل لازم')) {
-            this.match('فعل لازم');
-            this.remainingIntransitive();
-        } else if (this.IsLookaheadEquals('فعل متعدي')) {
-            this.match('فعل متعدي');
-            this.remainingTransitive();
-        }
-    }
-
     remainingIntransitive() {
-        if (super.parser.isSemiSentence())
+        if (this.parser.isSemiSentence())
             this.sentence.adjunctsPhrase();
     }
 
     remainingTransitive() {
-        if (super.parser.isObject()) {
+        if (this.parser.isObject()) {
             this.sentence.object();
             this.remainingTransitiveObject();
         }
     }
 
     remainingTransitiveObject() {
-        if (super.parser.isSemiSentence())
+        if (this.parser.isSemiSentence())
             this.sentence.adjunctsPhrase();
     }
 }

@@ -36,7 +36,7 @@ export default class Sentence extends ArabicGrammar {
 
     subject() {
         if (this.IsLookaheadEquals('اسم')) {
-            this.match('اسم');
+            this.match('اسم', this.parser.currentSentenceType == 'N' ? 'مبتدأ' : 'فاعل');
         } else if (this.IsLookaheadEquals('ضمير')) {
             this.match('ضمير');
         }
@@ -56,7 +56,7 @@ export default class Sentence extends ArabicGrammar {
         const ob = {
             'حرف جر': () => {
                 this.match('حرف جر');
-                this.match('اسم');
+                this.match('اسم', 'مجرور');
             },
             'ظرف': () => {
                 this.match('ظرف');
@@ -112,10 +112,15 @@ export default class Sentence extends ArabicGrammar {
 
     object() {
         if (this.IsLookaheadEquals('اسم'))
-            this.match('اسم');
-        else if (this.IsLookaheadEquals('حرف مصدري'))
+            this.match('اسم', 'مفعول به');
+        else if (this.IsLookaheadEquals('حرف مصدري')) {
+            const prevIndex = this.parser.currentIndex;
             this.interpretedInfinitive();
-        else if (this.parser.isNominalSentence())
+            const currentIndex = this.parser.currentIndex;
+            const objectSentence = this.parser.words.slice(prevIndex, currentIndex).join(' ');
+            console.log(`الجملة السابقة مفعول به مؤول(${objectSentence})`);
+
+        } else if (this.parser.isNominalSentence())
             new NominalSentence(this.parser, this);
     }
 
@@ -125,7 +130,7 @@ export default class Sentence extends ArabicGrammar {
     }
 
     annexed() {
-        this.match('اسم');
+        this.match('اسم', 'ظرف');
     }
 
     adjective() {
