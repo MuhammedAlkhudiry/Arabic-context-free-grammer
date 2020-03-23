@@ -2,6 +2,7 @@
  
 An application to analyze Arabic Text, for example:
 
+---
 input:
 ```
 يذهب محمد إلى المسجد
