@@ -16,12 +16,14 @@ export default class LexicalAnalyzer {
         if (this.isHarf()) {
             if (this.isNegativeParticle()) {
                 return 'حرف نفي';
-            } else if (this.isInterrogativeParticle()) {
-                return 'حرف استفهام';
+            } else if (this.isInfinitiveParticle()) {
+                return 'حرف جر';
             } else if (this.isPreposition()) {
                 return 'حرف جر';
             } else if (this.isInfinitiveParticle()) {
                 return 'حرف جر';
+            } else if (this.isInterrogativeParticle()) {
+                return 'حرف استفهام';
             }
             return 'حرف';
         } else if (this.isDigit()) {
@@ -38,6 +40,8 @@ export default class LexicalAnalyzer {
             return 'فعل ناسخ';
         } else if (this.isAdverb()) {
             return 'ظرف';
+        } else if (this.isRelativeNoun()) {
+            return 'حرف موصول';
         }
 
         return 'اسم';
@@ -69,8 +73,7 @@ export default class LexicalAnalyzer {
     }
 
     isDigit() {
-        return /^\d+$/.test(this.word) ||
-            /[\u0660-\u0669]/.test(this.word);
+        return /^\d+$/.test(this.word) || /[\u0660-\u0669]/.test(this.word);
     }
 
     isNegativeParticle() {
@@ -84,6 +87,7 @@ export default class LexicalAnalyzer {
     isPreposition() {
         return this.database.horof['حرف جر'].includes(this.word);
     }
+
     isInfinitiveParticle() {
         return this.database.horof['حرف مصدري'].includes(this.word);
     }
@@ -103,5 +107,9 @@ export default class LexicalAnalyzer {
     isAdverb() {
         return this.database.asma['ظرف زمان'].includes(this.word) ||
             this.database.asma['ظرف مكان'].includes(this.word);
+    }
+
+    isRelativeNoun() {
+        return this.database.asma['حرف موصول'].includes(this.word);
     }
 }

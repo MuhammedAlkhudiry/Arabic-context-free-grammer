@@ -11,14 +11,14 @@ export default class Parser {
     position: number = 0;
     lookahead: string = '';
     currentIndex: number = 0;
-     currentSentenceType: string;
+    currentSentenceType: string;
 
     constructor(text: string) {
         this.currentSentenceType = 'N'; // N -> nominal, V -> verbal
         this.originalText = text;
         this.lexicalAnalyzer = new LexicalAnalyzer();
-        this.words = text.split(' ');
         this.cleanText = Helper.cleanText(this.originalText);
+        this.words = this.cleanText.split(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~ ]/).filter(Boolean);
         this.readFirstWord();
     }
 
@@ -32,8 +32,9 @@ export default class Parser {
             this.currentIndex++;
             if ((this.lookahead = this.analyzeCurrentWord()) === 'علامة ترقيم')
                 this.lookahead = this.analyzeCurrentWord();
-        } else
+        } else {
             error.print();
+        }
     }
 
 

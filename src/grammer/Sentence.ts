@@ -35,9 +35,9 @@ export default class Sentence extends ArabicGrammar {
 
 
     subject() {
-        if (this.IsLookaheadEquals('اسم')) {
+        if (this.isLookaheadEquals('اسم')) {
             this.match('اسم', this.parser.currentSentenceType == 'N' ? 'مبتدأ' : 'فاعل');
-        } else if (this.IsLookaheadEquals('ضمير')) {
+        } else if (this.isLookaheadEquals('ضمير')) {
             this.match('ضمير');
         }
     }
@@ -86,17 +86,17 @@ export default class Sentence extends ArabicGrammar {
     }
 
     expansion() {
-        if (this.parser.isLookaheadIn(['اسم فاعل', 'اسم مفعول', 'صيغة مبالغة', 'صفة مشبهة']))
+        if (this.isLookaheadIn(['اسم فاعل', 'اسم مفعول', 'صيغة مبالغة', 'صفة مشبهة']))
             this.adjective();
-        else if (this.IsLookaheadEquals('حرف عطف')) this.coordinate();
-        else if (this.IsLookaheadEquals('اسم')) this.annexed();
+        else if (this.isLookaheadEquals('حرف عطف')) this.coordinate();
+        else if (this.isLookaheadEquals('اسم')) this.annexed();
         // else if (this.lookaheadIs('حال')) Circumstantial_Object
-        else if (this.IsLookaheadEquals('اسم موصول')) this.relativeSentence();
+        else if (this.isLookaheadEquals('اسم موصول')) this.relativeSentence();
     }
 
     complementPhrase() {
         this.complementElement();
-        if (this.parser.isLookaheadIn(['اسم', 'مصدر مؤول']) || this.parser.isNominalSentence() || this.parser.isExpansion()) {
+        if (this.isLookaheadIn(['اسم', 'مصدر مؤول']) || this.parser.isNominalSentence() || this.parser.isExpansion()) {
             this.complementPhrase();
         }
     }
@@ -111,9 +111,9 @@ export default class Sentence extends ArabicGrammar {
     }
 
     object() {
-        if (this.IsLookaheadEquals('اسم'))
+        if (this.isLookaheadEquals('اسم'))
             this.match('اسم', 'مفعول به');
-        else if (this.IsLookaheadEquals('حرف مصدري')) {
+        else if (this.isLookaheadEquals('حرف مصدري')) {
             const prevIndex = this.parser.currentIndex;
             this.interpretedInfinitive();
             const currentIndex = this.parser.currentIndex;
@@ -142,7 +142,7 @@ export default class Sentence extends ArabicGrammar {
     }
 
     remainingCoordinate() {
-        if (this.IsLookaheadEquals('اسم')) {
+        if (this.isLookaheadEquals('اسم')) {
             this.match('اسم');
         } else this.sentence();
     }

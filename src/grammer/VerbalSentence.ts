@@ -13,11 +13,11 @@ export default class VerbalSentence extends ArabicGrammar {
 
     verbalSentence() {
         this.parser.currentSentenceType = 'V';
-        if (this.IsLookaheadEquals('فعل لازم')) {
+        if (this.isLookaheadEquals('فعل لازم')) {
             this.match('فعل لازم');
             this.verbalSubjectPhrase();
             this.remainingIntransitive();
-        } else if (this.IsLookaheadEquals('فعل متعدي')) {
+        } else if (this.isLookaheadEquals('فعل متعدي')) {
             this.match('فعل متعدي');
             this.verbalSubjectPhrase();
             this.remainingTransitive();
@@ -26,12 +26,6 @@ export default class VerbalSentence extends ArabicGrammar {
 
     verbalSubjectPhrase() {
         this.sentence.subject();
-        this.remainingVerbalSubjectPhrase();
-
-    }
-
-    remainingVerbalSubjectPhrase() {
-        this.sentence.complementPhrase();
     }
 
     remainingIntransitive() {

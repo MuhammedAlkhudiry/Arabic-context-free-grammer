@@ -67,9 +67,4 @@ export default class Database {
         };
     }
 
-
-    fetch(word: string) {
-    }
-
-
 }

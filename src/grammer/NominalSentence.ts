@@ -19,13 +19,13 @@ export default class NominalSentence extends ArabicGrammar {
     }
 
     annular() {
-        if (this.parser.isLookaheadIn([
+        if (this.isLookaheadIn([
             'حرف نفي',
             'حرف استفهام',
             'حرف جر',
         ]))
             this.sentence.originalParticle();
-        else if (this.parser.isLookaheadIn([
+        else if (this.isLookaheadIn([
             'حرف ناسخ',
             'فعل ناسخ',
         ]))
@@ -43,15 +43,15 @@ export default class NominalSentence extends ArabicGrammar {
     }
 
     predicate() {
-        if (this.parser.isLookaheadIn(['اسم فاعل', 'اسم مفعول', 'صيغة مبالغة', 'صفة مشبهة']))
+        if (this.isLookaheadIn(['اسم فاعل', 'اسم مفعول', 'صيغة مبالغة', 'صفة مشبهة']))
             this.sentence.derivedNoun();
-        else if (this.IsLookaheadEquals('اسم')) {
+        else if (this.isLookaheadEquals('اسم')) {
             this.match('اسم', 'خبر');
         } else if (this.parser.isSemiSentence()) {
             const prevIndex = this.parser.currentIndex;
             this.sentence.semiSentence();
             const currentIndex = this.parser.currentIndex;
-            const predicateSentence = this.parser.words.slice(prevIndex, currentIndex).join(' ');
+            const predicateSentence = this.getWordsByIndex(prevIndex, currentIndex);
             console.log(`الجملة السابقة خبر(${predicateSentence})`);
         } else new Sentence(this.parser);
     }

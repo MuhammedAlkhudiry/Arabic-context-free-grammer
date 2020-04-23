@@ -1,5 +1,4 @@
 import Parser from "../Parser";
-import ATSError from "../Error";
 
 export default class ArabicGrammar {
     protected readonly parser: Parser;
@@ -8,11 +7,11 @@ export default class ArabicGrammar {
         this.parser = parser;
     }
 
-    IsLookaheadIn(tokenList: Array<string>) {
+    isLookaheadIn(tokenList: Array<string>) {
         return this.parser.isLookaheadIn(tokenList);
     }
 
-    IsLookaheadEquals(token: string) {
+    isLookaheadEquals(token: string) {
         return this.parser.isLookaheadEquals(token);
     }
 
@@ -20,4 +19,7 @@ export default class ArabicGrammar {
         return this.parser.match(token, partOfSpeech);
     }
 
+    getWordsByIndex(previousIndex: number, currentIndex: number) {
+        return this.parser.words.slice(previousIndex, currentIndex).join(' ');
+    }
 };
