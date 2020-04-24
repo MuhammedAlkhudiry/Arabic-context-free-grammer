@@ -1,5 +1,7 @@
 # Arabic-context-free-grammer
  
+ Related repo: [ATS-editor](https://github.com/KMLX28/ATS-editor)
+
 An application to analyze Arabic Text, for example:
 
 ---
