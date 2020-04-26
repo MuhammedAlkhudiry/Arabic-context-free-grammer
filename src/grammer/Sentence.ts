@@ -20,9 +20,9 @@ export default class Sentence extends ArabicGrammar {
 
     originalParticle() {
         const ob = {
-            'حرف نفي': () => this.match('حرف نفي'),
-            'حرف استفهام': () => this.match('حرف استفهام'),
-            'حرف جر': () => this.match('حرف جر')
+            'حرف نفي': () => this.match('حرف نفي', "حرف نفي"),
+            'حرف استفهام': () => this.match('حرف استفهام', "حرف استفهام"),
+            'حرف جر': () => this.match('حرف جر', "حرف جر")
         }[this.parser.lookahead]();
     }
 
@@ -58,8 +58,12 @@ export default class Sentence extends ArabicGrammar {
                 this.match('حرف جر');
                 this.match('اسم', 'مجرور');
             },
-            'ظرف': () => {
-                this.match('ظرف');
+            'ظرف مكان': () => {
+                this.match('ظرف مكان', "ظرف مكان");
+                this.annexed();
+            },
+            'ظرف زمان': () => {
+                this.match('ظرف زمان', "ظرف زمان");
                 this.annexed();
             },
         }[this.parser.lookahead]();
@@ -118,6 +122,7 @@ export default class Sentence extends ArabicGrammar {
             this.interpretedInfinitive();
             const currentIndex = this.parser.currentIndex;
             const objectSentence = this.parser.words.slice(prevIndex, currentIndex).join(' ');
+            this.parser.result += `الجملة السابقة مفعول به مؤول(${objectSentence})`;
             console.log(`الجملة السابقة مفعول به مؤول(${objectSentence})`);
 
         } else if (this.parser.isNominalSentence())
@@ -130,7 +135,7 @@ export default class Sentence extends ArabicGrammar {
     }
 
     annexed() {
-        this.match('اسم', 'ظرف');
+        this.match('اسم', 'مضاف');
     }
 
     adjective() {

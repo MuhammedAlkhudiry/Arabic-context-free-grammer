@@ -12,6 +12,7 @@ export default class Parser {
     lookahead: string = '';
     currentIndex: number = 0;
     currentSentenceType: string;
+    result: string;
 
     constructor(text: string) {
         this.currentSentenceType = 'N'; // N -> nominal, V -> verbal
@@ -28,6 +29,7 @@ export default class Parser {
 
     match(token: string, partOfSpeech: string = token, error: ATSError = new ATSError('خطأ لغوي')) {
         if (this.lookahead === token) {
+            this.result += `${this.getCurrentWord()} - (${token}) - (${partOfSpeech})`;
             console.log(`${this.getCurrentWord()} - (${token}) - (${partOfSpeech})`);
             this.currentIndex++;
             if ((this.lookahead = this.analyzeCurrentWord()) === 'علامة ترقيم')

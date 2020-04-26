@@ -38,8 +38,10 @@ export default class LexicalAnalyzer {
             return 'حرف ناسخ';
         } else if (this.isVerbalTransformedParticle()) {
             return 'فعل ناسخ';
-        } else if (this.isAdverb()) {
-            return 'ظرف';
+        } else if (this.isTimeAdverb()) {
+            return 'ظرف زمان';
+        } else if (this.isPlaceAdverb()) {
+            return 'ظرف مكان';
         } else if (this.isRelativeNoun()) {
             return 'حرف موصول';
         }
@@ -104,9 +106,12 @@ export default class LexicalAnalyzer {
         return this.database.afal['فعل ناسخ'].includes(this.word);
     }
 
-    isAdverb() {
-        return this.database.asma['ظرف زمان'].includes(this.word) ||
-            this.database.asma['ظرف مكان'].includes(this.word);
+    isTimeAdverb() {
+        return this.database.asma['ظرف زمان'].includes(this.word);
+    }
+
+    isPlaceAdverb() {
+        return this.database.asma['ظرف مكان'].includes(this.word);
     }
 
     isRelativeNoun() {

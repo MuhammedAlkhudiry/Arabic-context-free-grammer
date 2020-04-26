@@ -22,9 +22,10 @@ export default class NominalSentence extends ArabicGrammar {
         if (this.isLookaheadIn([
             'حرف نفي',
             'حرف استفهام',
-            'حرف جر',
         ]))
             this.sentence.originalParticle();
+        else if (this.isLookaheadEquals('حرف جر'))
+            this.sentence.semiSentence();
         else if (this.isLookaheadIn([
             'حرف ناسخ',
             'فعل ناسخ',
@@ -33,8 +34,12 @@ export default class NominalSentence extends ArabicGrammar {
     }
 
     subjectPhrase() {
-        this.sentence.subject();
-        this.sentence.expansionPhrase();
+        if (this.isLookaheadEquals('اسم')) {
+            this.sentence.subject();
+        } else {
+            this.sentence.subject();
+            this.sentence.expansionPhrase();
+        }
     }
 
     predicatePhrase() {
@@ -52,6 +57,7 @@ export default class NominalSentence extends ArabicGrammar {
             this.sentence.semiSentence();
             const currentIndex = this.parser.currentIndex;
             const predicateSentence = this.getWordsByIndex(prevIndex, currentIndex);
+            this.parser.result += `الجملة السابقة خبر(${predicateSentence})`;
             console.log(`الجملة السابقة خبر(${predicateSentence})`);
         } else new Sentence(this.parser);
     }
